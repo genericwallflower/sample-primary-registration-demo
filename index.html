@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REGISTRATION DEMO</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: sans-serif;
+            background: linear-gradient(120deg, #fffbe6 0%, #fffde4 40%, #fff9c4 70%, #ffe066 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #3a3a2c;
+        }
+
+        .container {
+            max-width: 820px;
+            margin: 0 auto;
+            background: linear-gradient(120deg, #fffbe6 0%, #fffde4 100%);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px 0 rgba(255, 224, 102, 0.25), 0 1.5px 8px 0 rgba(255, 212, 67, 0.10);
+            border: 1.5px solid #ffe066;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(90deg, #ffe096 0%, #ffe066 60%, #ffe036 100%);
+            color: #ffffff;
+            padding: 32px 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+        }
+
+        .header p {
+            font-size: 1rem;
+            opacity: 0.95;
+            margin: 0 2rem;
+            text-align: left;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+        }
+
+        .tabs {
+            display: flex;
+            background: linear-gradient(90deg, #fffbe6 0%, #ffe066 100%);
+            border-bottom: 2px solid #ffe066;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #000000;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tab:hover {
+            background: #fff9c4;
+        }
+
+        .tab.active {
+            background: #ffe066;
+            color: #000000;
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #ffd43b;
+        }
+
+        .form-container {
+            padding: 44px 40px 40px 40px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            font-weight: 700;
+            color: #bfa100;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 15px;
+            border: 2px solid #ffe066;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #fffbe6;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #ffd43b;
+            box-shadow: 0 0 0 3px rgba(255, 224, 102, 0.18);
+            transform: translateY(-2px);
+        }
+
+        .form-group input::placeholder {
+            color: #c9b800;
+        }
+
+        .schools-section {
+            margin-top: 30px;
+            padding: 28px 25px 25px 25px;
+            background: linear-gradient(120deg, #fffbe6 0%, #fffde4 100%);
+            border-radius: 18px;
+            border: 2px solid #ffe066;
+        }
+
+        .schools-section h3 {
+            color: #bfa100;
+            margin-bottom: 20px;
+            font-size: 1.25rem;
+            text-align: center;
+        }
+
+        .schools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .school-choice {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .school-choice label {
+            font-weight: 700;
+            color: #bfa100;
+            margin-bottom: 8px;
+            font-size: 0.97rem;
+        }
+
+        .school-choice select {
+            padding: 12px;
+            border: 2px solid #ffe066;
+            border-radius: 10px;
+            font-size: 0.97rem;
+            background: #fffbe6;
+            transition: all 0.3s ease;
+        }
+
+        .school-choice select:focus {
+            outline: none;
+            border-color: #ffd43b;
+            box-shadow: 0 0 0 3px rgba(255, 224, 102, 0.18);
+        }
+
+        .register-btn {
+            background: linear-gradient(90deg, #ffd08a 0%, #ffc05c 40%, #ffb036 60%, #e6a23c 80%, #ffd08a 100%);
+            background-size: 400% 400%;
+            animation: yellowGradientMove 5s linear infinite;
+            color: #ffffff;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.13rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 18px rgba(255, 224, 102, 0.25);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+            margin-top: 30px;
+            width: 100%;
+        }
+
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(255, 224, 102, 0.32);
+        }
+
+        @keyframes yellowGradientMove {
+            0% {
+                background-position: 400% 0%;
+            }
+
+            25% {
+                background-position: 300% 0%;
+            }
+
+            50% {
+                background-position: 200% 0%;
+            }
+
+            75% {
+                background-position: 100% 0%;
+            }
+
+            100% {
+                background-position: 0% 0%;
+            }
+        }
+
+        .register-btn:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab {
+                padding: 15px;
+            }
+
+            .schools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>REGISTRATION EXERCISE PROTOTYPE</h1>
+            <p>This is a front-end proof-of-concept for a simplified registration exercise for SG primary schools.</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab(this, 'phase1')">Phase 1</button>
+            <button class="tab" onclick="switchTab(this, 'phase2a')">Phase 2A</button>
+            <button class="tab" onclick="switchTab(this, 'phase2b')">Phase 2B</button>
+            <button class="tab" onclick="switchTab(this, 'phase2c')">Phase 2C</button>
+        </div>
+
+        <div class="form-container">
+            <form id="registrationForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="childName">Child Name</label>
+                        <input type="text" id="childName" name="childName" placeholder="Ward / Child Name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="childBC">Child BC / FIN</label>
+                        <input type="password" id="childBC" name="childBC" placeholder="Child Birth Certificate / FIN"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="parentName">Parent Name</label>
+                        <input type="text" id="parentName" name="parentName" placeholder="Parent / Guardian Name"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="parentIC">Parent IC / FIN</label>
+                        <input type="password" id="parentIC" name="parentIC" placeholder="Parent / Guardian NRIC / FIN"
+                            required>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="parentContact">Parent Contact No.</label>
+                        <input type="tel" id="parentContact" name="parentContact"
+                            placeholder="Parent / Guardian SG Mobile No." required>
+                    </div>
+                </div>
+
+                <div class="schools-section">
+                    <h3>Primary School Choices</h3>
+                    <div class="schools-grid">
+                        <div class="school-choice">
+                            <label for="choice1">Primary School Choice 1</label>
+                            <select id="choice1" name="choice1" required>
+                                <option value="">Select Primary School</option>
+                            </select>
+                        </div>
+
+                        <div class="school-choice">
+                            <label for="choice2">Primary School Choice 2</label>
+                            <select id="choice2" name="choice2">
+                                <option value="">Select Primary School</option>
+                            </select>
+                        </div>
+
+                        <div class="school-choice">
+                            <label for="choice3">Primary School Choice 3</label>
+                            <select id="choice3" name="choice3">
+                                <option value="">Select Primary School</option>
+                            </select>
+                        </div>
+
+                        <div class="school-choice">
+                            <label for="choice4">Primary School Choice 4</label>
+                            <select id="choice4" name="choice4">
+                                <option value="">Select Primary School</option>
+                            </select>
+                        </div>
+
+                        <div class="school-choice">
+                            <label for="choice5">Primary School Choice 5</label>
+                            <select id="choice5" name="choice5">
+                                <option value="">Select Primary School</option>
+                            </select>
+                        </div>
+
+                        <div class="school-choice">
+                            <label for="choice6">Primary School Choice 6</label>
+                            <select id="choice6" name="choice6">
+                                <option value="">Select Primary School</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="register-btn">Submit Registration</button>
+            </form>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
+        integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        // Primary schools data (formatted as requested)
+        const primarySchools = [
+            "Admiralty Primary School",
+            "Ahmad Ibrahim Primary School",
+            "Ai Tong Primary School",
+            "Alexandra Primary School",
+            "Anchor Green Primary School",
+            "Anderson Primary School",
+            "Ang Mo Kio Primary School",
+            "Anglo-Chinese Primary School (Junior)",
+            "Anglo-Chinese Primary School (Primary)",
+            "Angsana Primary School",
+            "Beacon Primary School",
+            "Bedok Green Primary School",
+            "Bendemeer Primary School",
+            "Blangah Rise Primary School",
+            "Boon Lay Garden Primary School",
+            "Bukit Panjang Primary School",
+            "Bukit Timah Primary School",
+            "Bukit View Primary School",
+            "Canberra Primary School",
+            "Canossa Catholic Primary School",
+            "Cantonment Primary School",
+            "Casuarina Primary School",
+            "Catholic High Primary School",
+            "Cedar Primary School",
+            "Changkat Primary School",
+            "Chij (Katong) Primary School",
+            "Chij (Kellock) Primary School",
+            "Chij Our Lady Of Good Counsel Primary School",
+            "Chij Our Lady Of The Nativity Primary School",
+            "Chij Our Lady Queen Of Peace Primary School",
+            "Chij Primary School (Toa Payoh)",
+            "Chij St. Nicholas Girls' Primary School",
+            "Chongfu Primary School",
+            "Chongzheng Primary School",
+            "Chua Chu Kang Primary School",
+            "Clementi Primary School",
+            "Compassvale Primary School",
+            "Concord Primary School",
+            "Coral Primary School",
+            "Corporation Primary School",
+            "Da Qiao Primary School",
+            "Damai Primary School",
+            "Dazhong Primary School",
+            "De La Salle Primary School",
+            "East Coast Primary School",
+            "East Spring Primary School",
+            "East View Primary School",
+            "Edgefield Primary School",
+            "Elias Park Primary School",
+            "Endeavour Primary School",
+            "Evergreen Primary School",
+            "Fairfield Methodist Primary School",
+            "Farrer Park Primary School",
+            "Fengshan Primary School",
+            "Fernvale Primary School",
+            "First Toa Payoh Primary School",
+            "Frontier Primary School",
+            "Fuchun Primary School",
+            "Fuhua Primary School",
+            "Gan Eng Seng Primary School",
+            "Geylang Methodist Primary School",
+            "Gongshang Primary School",
+            "Greendale Primary School",
+            "Greenridge Primary School",
+            "Greenwood Primary School",
+            "Haig Girls' Primary School",
+            "Henry Park Primary School",
+            "Holy Innocents' Primary School",
+            "Hong Wen Primary School",
+            "Horizon Primary School",
+            "Hougang Primary School",
+            "Huamin Primary School",
+            "Innova Primary School",
+            "Jiemin Primary School",
+            "Jing Shan Primary School",
+            "Junyuan Primary School",
+            "Jurong Primary School",
+            "Jurong West Primary School",
+            "Juying Primary School",
+            "Keming Primary School",
+            "Kheng Cheng Primary School",
+            "Kong Hwa Primary School",
+            "Kranji Primary School",
+            "Kuo Chuan Presbyterian Primary School",
+            "Lakeside Primary School",
+            "Lianhua Primary School",
+            "Maha Bodhi Primary School",
+            "Maris Stella High Primary School",
+            "Marsiling Primary School",
+            "Marymount Convent Primary School",
+            "Mayflower Primary School",
+            "Mee Toh Primary School",
+            "Meridian Primary School",
+            "Methodist Girls' Primary School",
+            "Montfort Junior Primary School",
+            "Nan Chiau Primary School",
+            "Nan Hua Primary School",
+            "Nanyang Primary School",
+            "Naval Base Primary School",
+            "New Town Primary School",
+            "Ngee Ann Primary School",
+            "North Spring Primary School",
+            "North View Primary School",
+            "North Vista Primary School",
+            "Northland Primary School",
+            "Northoaks Primary School",
+            "Oasis Primary School",
+            "Opera Estate Primary School",
+            "Palm View Primary School",
+            "Park View Primary School",
+            "Pasir Ris Primary School",
+            "Paya Lebar Methodist Girls' Primary School",
+            "Pei Chun Public Primary School",
+            "Pei Hwa Presbyterian Primary School",
+            "Pei Tong Primary School",
+            "Peiying Primary School",
+            "Pioneer Primary School",
+            "Poi Ching Primary School",
+            "Princess Elizabeth Primary School",
+            "Punggol Cove Primary School",
+            "Punggol Green Primary School",
+            "Punggol Primary School",
+            "Punggol View Primary School",
+            "Qifa Primary School",
+            "Qihua Primary School",
+            "Queenstown Primary School",
+            "Radin Mas Primary School",
+            "Raffles Girls' Primary School",
+            "Red Swastika Primary School",
+            "River Valley Primary School",
+            "Riverside Primary School",
+            "Rivervale Primary School",
+            "Rosyth Primary School",
+            "Rulang Primary School",
+            "Sembawang Primary School",
+            "Sengkang Green Primary School",
+            "Sengkang Primary School",
+            "Shuqun Primary School",
+            "Si Ling Primary School",
+            "Singapore Chinese Girls' Primary School",
+            "South View Primary School",
+            "Springdale Primary School",
+            "St. Andrew's Junior Primary School",
+            "St. Anthony's Canossian Primary School",
+            "St. Anthony's Primary School",
+            "St. Gabriel's Primary School",
+            "St. Hilda's Primary School",
+            "St. Joseph's Institution Junior Primary School",
+            "St. Margaret's Primary School",
+            "St. Stephen's Primary School",
+            "Tampines North Primary School",
+            "Tampines Primary School",
+            "Tanjong Katong Primary School",
+            "Tao Nan Primary School",
+            "Teck Ghee Primary School",
+            "Teck Whye Primary School",
+            "Telok Kurau Primary School",
+            "Temasek Primary School",
+            "Townsville Primary School",
+            "Unity Primary School",
+            "Valour Primary School",
+            "Waterway Primary School",
+            "Wellington Primary School",
+            "West Grove Primary School",
+            "West Spring Primary School",
+            "West View Primary School",
+            "Westwood Primary School",
+            "White Sands Primary School",
+            "Woodgrove Primary School",
+            "Woodlands Primary School",
+            "Woodlands Ring Primary School",
+            "Xinghua Primary School",
+            "Xingnan Primary School",
+            "Xinmin Primary School",
+            "Xishan Primary School",
+            "Yangzheng Primary School",
+            "Yew Tee Primary School",
+            "Yio Chu Kang Primary School",
+            "Yishun Primary School",
+            "Yu Neng Primary School",
+            "Yuhua Primary School",
+            "Yumin Primary School",
+            "Zhangde Primary School",
+            "Zhenghua Primary School",
+            "Zhonghua Primary School"
+        ];
+
+        // Current phase
+        let currentPhase = 'phase1';
+
+        // Populate school dropdowns
+        function populateSchoolDropdowns() {
+            const selects = document.querySelectorAll('select[id^="choice"]');
+            selects.forEach(select => {
+                // Clear existing options except the first one
+                while (select.children.length > 1) {
+                    select.removeChild(select.lastChild);
+                }
+
+                // Add school options
+                primarySchools.forEach(school => {
+                    const option = document.createElement('option');
+                    option.value = school;
+                    option.textContent = school;
+                    select.appendChild(option);
+                });
+            });
+        }
+
+        // Switch tab function
+        function switchTab(tabElement, phase) {
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Add active class to clicked tab
+            tabElement.classList.add('active');
+
+            // Update current phase
+            currentPhase = phase;
+        }
+
+        // Form submission
+        document.querySelector('.register-btn').addEventListener('click', function (e) {
+            e.preventDefault();
+
+            // Show success message
+            swal("Completed!", "Registration submitted successfully!", "success");
+        });
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function () {
+            populateSchoolDropdowns();
+        });
+    </script>
+</body>
+
+</html>
